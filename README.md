@@ -1,91 +1,170 @@
 # CyberOps Prepárate para la Certificación 
 
 Dominio 1: Conceptos de seguridad: Este dominio se cubre en los Capítulos 1, 2, 3 y 4.
+
 	1.1 Describir la tríada CIA 
+	
 	1.2 Comparar implementaciones de seguridad 
+	
 		1.2.a Sistemas de seguridad de red, endpoint y aplicación 
+		
 		1.2.b Protecciones sin agente y basadas en agente 
+		
 		1.2.c Antivirus y antimalware heredados 
+		
 		1.2.d SIEM, SOAR y administración de registros 
+		
 	1.3 Describir términos de seguridad 
+	
 		1.3.a Inteligencia de amenazas (TI) 
+		
 		1.3.b Búsqueda de amenazas 
+		
 		1.3.c Análisis de malware 
+		
 		1.3.d Actor de amenazas 
+		
 		1.3.e Automatización de libros de ejecución (RBA) 
+		
 		1.3.f Ingeniería inversa 
-		1.3.g Detección de anomalías de ventana deslizante 
+		
+		1.3.g Detección de anomalías de ventana deslizante
+		
 		1.3.h Principio del mínimo privilegio 
+		
 		1.3.i Confianza cero 
+		
 		1.3.j Plataforma de inteligencia de amenazas (TIP) 
+		
 	1.4 Comparar conceptos de seguridad 
+	
 		1.4.a Riesgo (puntuación de riesgo/ponderación de riesgo, riesgo reducción, evaluación de riesgos) 
+		
 		1.4.b Amenaza 
+		
 		1.4.c Vulnerabilidad 
+		
 		1.4.d Exploit
+		
 	1.5 Describir los principios de la estrategia de defensa en profundidad
+	
 	1.6 Comparar los modelos de control de acceso
+	
 		1.6.a Control de acceso discrecional
+		
 		1.6.b Control de acceso obligatorio
+		
 		1.6.c Control de acceso no discrecional
+		
 		1.6.d Autenticación, autorización, contabilidad
+		
 		1.6.e Control de acceso basado en reglas
+		
 		1.6.f Control de acceso basado en tiempo
+		
 		1.6.g Control de acceso basado en roles
+		
 	1.7 Describir los términos tal como se definen en CVSS
+	
 		1.7.a Vector de ataque
+		
 		1.7.b Complejidad del ataque
+		
 		1.7.c Privilegios requeridos
+		
 		1.7.d Interacción del usuario
+		
 		1.7.e Alcance
+		
 		1.8 Identificar los desafíos de la visibilidad de los datos (red, host y nube) en la detección
+		
 	1.9 Identificar la posible pérdida de datos de los perfiles de tráfico proporcionados
+	
 	1.10 Interpretar el enfoque de 5 tuplas para aislar un host comprometido en un conjunto agrupado de registros
+	
 	1.11 Comparación entre detección basada en reglas y detección estadística y de comportamiento
 	
 Dominio 2: Monitoreo de seguridad: este dominio se cubre principalmente en los Capítulos 5, 7, 10,
 12, 14 y 15.
+
 	2.1 Comparación de la superficie de ataque y la vulnerabilidad
+	
 	2.2 Identificación de los tipos de datos proporcionados por estas tecnologías
+	
 		2.2.a Volcado de TCP
+		
 		2.2.b NetFlow
+		
 		2.2.c Cortafuegos de última generación
+		
 		2.2.d Cortafuegos tradicional con estado
+		
 		2.2.e Visibilidad y control de aplicaciones
+		
 		2.2.f Filtrado de contenido web
+		
 		2.2.g Filtrado de contenido de correo electrónico
+		
 	2.3 Describir el impacto de estas tecnologías en la visibilidad de los datos
+	
 		2.3.a Lista de control de acceso
+		
 		2.3.b NAT/PAT
+		
 		2.3.c Tunelización
+		
 		2.3.d TOR
+		
 		2.3.e Cifrado
+		
 		2.3.f P2P
+		
 		2.3.g Encapsulación
+		
 		2.3.h Balanceo de carga
+		
 	2.4 Describir los usos de estos tipos de datos en la monitorización de la seguridad
+	
 		2.4.a Captura completa de paquetes
+		
 		2.4.b Datos de sesión
+		
 		2.4.c Datos de transacción
+		
 		2.4.d Datos estadísticos
+		
 		2.4.e Metadatos
+		
 		2.4.f Datos de alerta
+		
 	2.5 Describir los ataques de red, como los basados ​​en protocolo, denegación de servicio, denegación de servicio distribuida y de tipo man-in-the-middle
+	
 	2.6 Describir los ataques a aplicaciones web, como la inyección SQL, las inyecciones de comandos y los scripts entre sitios
+	
 	2.7 Describir los ataques de ingeniería social
+	
 	2.8 Describir ataques basados ​​en puntos finales, como desbordamientos de búfer, comando y control (C2), malware y ransomware
+	
 	2.9 Describir técnicas de evasión y ofuscación, como tunelización, cifrado y servidores proxy
-	2.10 Describir el impacto de los certificados en la seguridad (incluye PKI, público/privado
-cruzando la red, asimétrico/simétrico)
+	
+	2.10 Describir el impacto de los certificados en la seguridad (incluye PKI, público/privado cruzando la red, asimétrico/simétrico)
+	
 	2.11 Identificar los componentes del certificado en un escenario determinado
+	
 		2.11.a Conjunto de cifrados
+		
 		2.11.b Certificados X.509
+		
 		2.11.c Intercambio de claves
+		
 		2.11.d Versión del protocolo
+		
 		2.11.e PKCS
 
 Dominio 3: Análisis basado en host: este dominio se cubre principalmente en el Capítulo 11.
+
 	3.1 Describir la funcionalidad de estas tecnologías de punto final en relación con el monitoreo de seguridad
+	
 		3.1.a Detección de intrusiones basada en host
 		3.1.b Antimalware y antivirus
 		3.1.c Cortafuegos basado en host
