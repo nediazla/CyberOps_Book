@@ -1,54 +1,31 @@
 # CyberOps Prepárate para la Certificación 
 
-Dominio 1: Conceptos de seguridad: Este dominio se cubre en los Capítulos 1, 2, 3 y 4.
-
-	1.1 Describir la tríada CIA 
-	
-	1.2 Comparar implementaciones de seguridad 
-	
-		1.2.a Sistemas de seguridad de red, endpoint y aplicación 
+- Dominio 1: Conceptos de seguridad: Este dominio se cubre en los Capítulos 1, 2, 3 y 4.
+	- 1.1 Describir la tríada CIA
+	- 1.2 Comparar implementaciones de seguridad
+		- 1.2.a Sistemas de seguridad de red, endpoint y aplicación
+		- 1.2.b Protecciones sin agente y basadas en agente
+		- 1.2.c Antivirus y antimalware heredados 
+		- 1.2.d SIEM, SOAR y administración de registros 
+	- 1.3 Describir términos de seguridad 
+		- 1.3.a Inteligencia de amenazas (TI) \
+		- 1.3.b Búsqueda de amenazas 
+		- 1.3.c Análisis de malware 
+		- 1.3.d Actor de amenazas 
+		- 1.3.e Automatización de libros de ejecución (RBA) 
+		- 1.3.f Ingeniería inversa 
+		- 1.3.g Detección de anomalías de ventana deslizante
+		- 1.3.h Principio del mínimo privilegio 
+		- 1.3.i Confianza cero 
+		- 1.3.j Plataforma de inteligencia de amenazas (TIP) 
+	- 1.4 Comparar conceptos de seguridad 
+		- 1.4.a Riesgo (puntuación de riesgo/ponderación de riesgo, riesgo reducción, evaluación de riesgos) 
+		- 1.4.b Amenaza 
+		- 1.4.c Vulnerabilidad 
+		- 1.4.d Exploit
 		
-		1.2.b Protecciones sin agente y basadas en agente 
-		
-		1.2.c Antivirus y antimalware heredados 
-		
-		1.2.d SIEM, SOAR y administración de registros 
-		
-	1.3 Describir términos de seguridad 
-	
-		1.3.a Inteligencia de amenazas (TI) 
-		
-		1.3.b Búsqueda de amenazas 
-		
-		1.3.c Análisis de malware 
-		
-		1.3.d Actor de amenazas 
-		
-		1.3.e Automatización de libros de ejecución (RBA) 
-		
-		1.3.f Ingeniería inversa 
-		
-		1.3.g Detección de anomalías de ventana deslizante
-		
-		1.3.h Principio del mínimo privilegio 
-		
-		1.3.i Confianza cero 
-		
-		1.3.j Plataforma de inteligencia de amenazas (TIP) 
-		
-	1.4 Comparar conceptos de seguridad 
-	
-		1.4.a Riesgo (puntuación de riesgo/ponderación de riesgo, riesgo reducción, evaluación de riesgos) 
-		
-		1.4.b Amenaza 
-		
-		1.4.c Vulnerabilidad 
-		
-		1.4.d Exploit
-		
-	1.5 Describir los principios de la estrategia de defensa en profundidad
-	
-	1.6 Comparar los modelos de control de acceso
+	- 1.5 Describir los principios de la estrategia de defensa en profundidad
+	- 1.6 Comparar los modelos de control de acceso
 	
 		1.6.a Control de acceso discrecional
 		
@@ -189,15 +166,25 @@ Dominio 3: Análisis basado en host: este dominio se cubre principalmente en el 
 		3.7.c Sistemas, eventos y redes
 
 Dominio 4: Análisis de intrusiones en la red: este dominio se cubre principalmente en los capítulos 10, 13 y 15.
+
 	4.1 Asignar los eventos proporcionados a las tecnologías de origen
+	
 		4.1.a IDS/IPS
+		
 		4.1.b Cortafuegos
+		
 		4.1.c Control de aplicaciones de red
+		
 		4.1.d Registros de proxy
+		
 		4.1.e Antivirus
+		
 		4.1.f Datos de transacciones (NetFlow)
+		
 	4.2 Comparar el impacto y la ausencia de impacto de estos elementos
+	
 		4.2.a Falso positivo
+		
 		4.2.b Falso negativo
 		4.2.c Verdadero positivo
 		4.2.d Verdadero negativo

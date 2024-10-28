@@ -44,7 +44,7 @@ Los programas de ciberseguridad reconocen que las organizaciones deben estar ale
 - Respuesta a incidentes y resiliencia
 ## El marco de ciberseguridad del NIST
 El Instituto Nacional de Estándares y Tecnología (NIST) es una agencia federal no regulatoria
-reconocida dentro de la Administración de Tecnología del Departamento de Comercio de los EE. UU. La misión del NIST es desarrollar y promover la medición, los estándares y la tecnología para mejorar la productividad, facilitar el comercio y mejorar la calidad de vida. La División de Seguridad Informática (CSD) es una de las siete divisiones dentro del Laboratorio de Tecnología de la información del NIST. El marco de seguridad cibernética del NIST es una recopilación de estándares de la industria y mejores prácticas para ayudar a las organizaciones a gestionar los riesgos de seguridad cibernética. Este marco se creó en colaboración entre el gobierno de los Estados Unidos, corporaciones e individuos. Se puede acceder al marco de seguridad cibernética del NIST en www.nist.gov/cyberframework.
+reconocida dentro de la Administración de Tecnología del Departamento de Comercio de los EE. UU. La misión del NIST es desarrollar y promover la medición, los estándares y la tecnología para mejorar la productividad, facilitar el comercio y mejorar la calidad de vida. La División de Seguridad Informática (CSD) es una de las siete divisiones dentro del Laboratorio de Tecnología de la información del NIST. El marco de seguridad cibernética del NIST es una recopilación de estándares de la industria y mejores prácticas para ayudar a las organizaciones a gestionar los riesgos de seguridad cibernética. Este marco se creó en colaboración entre el gobierno de los Estados Unidos, corporaciones e individuos. Se puede acceder al marco de seguridad cibernética del NIST en www.nist.gov/
 
 El marco de seguridad cibernética del NIST se desarrolló con una taxonomía común y uno de los objetivos principales es abordar y gestionar el riesgo de seguridad cibernética de una manera rentable para proteger la infraestructura crítica. Aunque está diseñado para un grupo específico, los requisitos pueden servir como modelo de seguridad para cualquier organización.
 
@@ -167,5 +167,285 @@ A continuación, se ofrecen algunos ejemplos:
 
 Cabe señalar que también se pueden aprovechar muchas fuentes de código abierto y no relacionadas con la seguridad para obtener información sobre amenazas. Algunos ejemplos de estas fuentes son las redes sociales, los foros, los blogs y los sitios web de los proveedores.
 ### Plataforma de inteligencia de amenazas
+Muchas organizaciones implementan sus propias plataformas de inteligencia de amenazas (TIP) para agregar, correlacionar y analizar información de inteligencia de amenazas de múltiples fuentes casi en tiempo real. Para que los analistas del centro de operaciones de seguridad (SOC) puedan defenderse de las amenazas actuales, las TIP deben escalar y admitir la creciente cantidad de datos de inteligencia de amenazas generados por una variedad de recursos (incluidos los registros del sistema y las fuentes de inteligencia de amenazas). Las plataformas de inteligencia de amenazas modernas proporcionan y también utilizan API para recopilar o intercambiar datos.
 
-59
+Las plataformas de inteligencia de amenazas admiten lo siguiente:
+- Recopilación de inteligencia de amenazas: recopilación y agregación de múltiples formatos de datos, incluidos CSV, STIX, XML, JSON, IODEK, OpenIOC y fuentes de inteligencia de amenazas patentadas.
+- Correlación de datos: análisis y correlación automáticos de datos de inteligencia de amenazas.
+- Enriquecimiento y contextualización: proporciona un contexto enriquecido en torno a las amenazas para permitir que los analistas del SOC y los encargados de responder a incidentes tengan la mayor cantidad posible de datos sobre el ataque y el actor de la amenaza (adversario).
+- Analizar: automatiza el análisis de indicadores de amenazas para permitir la identificación de las tácticas, técnicas y procedimientos (TTP) del adversario. A menudo, los TIP pueden aprovechar las tácticas y técnicas del adversario incluidas en el marco ATT&CK de MITRE (attack.mitre.org).
+- Integraciones con otros sistemas de seguridad: los TIP modernos brindan la capacidad de integrarse con muchas soluciones de seguridad diferentes (incluidas las soluciones Security Information and Event Management [SIEM] y Security Orchestration Automation and Response [SOAR]).
+- Actuar: la plataforma de inteligencia de amenazas debe permitir a los profesionales de seguridad crear herramientas y aplicaciones que puedan ayudar a responder y mitigar las amenazas y los ataques de ciberseguridad.
+
+## Vulnerabilidades, Exploits y Exploit Kits
+
+Anteriormente en este capítulo, aprendió que una vulnerabilidad es una debilidad en el diseño, la implementación, el software o el código del sistema, o la falta de un mecanismo. La cantidad de vulnerabilidades reveladas continúa aumentando. Puede mantenerse al día con las revelaciones de vulnerabilidades suscribiéndose a los canales de vulnerabilidades y buscando repositorios públicos como la Base de datos nacional de vulnerabilidades (NVD). Puede acceder a la NVD en https://nvd.nist.gov.
+
+Existen muchas vulnerabilidades de software y hardware diferentes y categorías relacionadas.
+Los siguientes son ejemplos de vulnerabilidades basadas en inyección:
+- Vulnerabilidades de inyección SQL
+- Vulnerabilidades de inyección HTML
+- Vulnerabilidades de inyección de comandos
+Las vulnerabilidades de inyección de código se explotan al obligar a una aplicación o un sistema a procesar datos no válidos. Un atacante aprovecha este tipo de vulnerabilidad para inyectar código en un sistema vulnerable y cambiar el curso de la ejecución. Una explotación exitosa puede llevar a la divulgación de información confidencial, manipulación de datos, condiciones de denegación de servicio y más. Algunos ejemplos de vulnerabilidades de inyección de código incluyen los siguientes:
+- Inyección SQL
+- Inyección de script HTML
+- Evaluación de código dinámico
+- Inyección de objetos
+- Inclusión de archivos remotos
+- Cadena de formato no controlada
+- Inyección de shell
+## Inyeccion SQL
+
+Las vulnerabilidades de inyección SQL (SQLi) pueden ser catastróficas porque pueden permitir que un atacante vea, inserte, elimine o modifique registros en una base de datos. En un ataque de inyección SQL, el atacante inserta o inyecta consultas SQL parciales o completas a través de la aplicación web. El atacante inyecta comandos SQL en campos de entrada de una aplicación o una URL para ejecutar comandos SQL predefinidos.
+Las aplicaciones web construyen instrucciones SQL que involucran la sintaxis SQL invocada por la aplicación combinada con datos proporcionados por el usuario, de la siguiente manera:
+SELECT * FROM Users WHERE UserName LIKE '%Santos%';
+La instrucción SQL real no se muestra al usuario. Normalmente, la aplicación envía esta parte a la base de datos en segundo plano. La parte resaltada de la instrucción SQL suele ser la entrada del usuario en un formulario web.
+Si una aplicación no desinfecta la entrada del usuario, un atacante puede proporcionar una entrada elaborada en un intento de hacer que la instrucción SQL original ejecute más acciones en la base de datos. Las inyecciones SQL se pueden realizar utilizando cadenas proporcionadas por el usuario o entrada numérica. El siguiente es un ejemplo de un ataque básico de inyección SQL:
+
+```sql
+Santos' OR 1=1;-
+```
+
+Cuando se ingresa la cadena Santos' OR 1=1;-- en un formulario web de una aplicación vulnerable, puede hacer que la aplicación muestre todos los registros de la tabla de la base de datos al atacante.
+Uno de los primeros pasos para encontrar vulnerabilidades de inyección SQL es comprender cuándo interactúa la aplicación con una base de datos. Esto se hace típicamente con formularios de autenticación web, motores de búsqueda y sitios interactivos como sitios de comercio electrónico.
+Los ataques de inyección SQL se pueden dividir en las siguientes categorías:
+- Inyección SQL en banda: con este tipo de inyección, el atacante obtiene los datos utilizando el mismo canal que se utiliza para inyectar el código SQL. Esta es la forma más básica de un ataque de inyección SQL, donde los datos se vuelcan directamente en una aplicación web (o página web).
+- Inyección SQL fuera de banda: con este tipo de inyección, el atacante recupera datos utilizando un canal diferente. Por ejemplo, se podría enviar un correo electrónico, un texto o un mensaje instantáneo al atacante con los resultados de la consulta. Alternativamente, el atacante podría enviar los datos comprometidos a otro sistema.
+- Inyección SQL ciega (o inferencial): con este tipo de inyección, el atacante no hace que la aplicación muestre o transfiera ningún dato; en cambio, el atacante puede reconstruir la información enviando instrucciones específicas y discerniendo el comportamiento de la aplicación y la base de datos.
+Para realizar un ataque de inyección SQL, un atacante debe crear una instrucción SQL sintácticamente correcta (consulta). El atacante también puede aprovechar los mensajes de error que regresan de la aplicación y podría ser capaz de reconstruir la lógica de la consulta original para comprender cómo ejecutar el ataque correctamente. Si la aplicación oculta los detalles del error, el atacante podría necesitar aplicar ingeniería inversa a la lógica de la consulta original.
+## Inyección HTML
+Una inyección HTML es una vulnerabilidad que ocurre cuando un usuario no autorizado puede controlar un punto de entrada e inyectar código HTML arbitrario en una aplicación web. Una explotación exitosa podría llevar a la divulgación de las cookies de sesión de un usuario; un atacante podría hacer esto para
+suplantar a una víctima o modificar el contenido de la página web o la aplicación que ven las víctimas.
+Las vulnerabilidades de inyección HTML pueden llevar a secuencias de comandos entre sitios (XSS). Más adelante en este capítulo aprenderá detalles sobre los diferentes tipos de vulnerabilidades y ataques XSS.
+## Inyección de comandos
+Una inyección de comandos es un ataque en el que un atacante intenta ejecutar comandos que no se supone que pueda ejecutar en un sistema a través de una aplicación vulnerable. Los ataques de inyección de comandos son posibles cuando una aplicación no valida los datos proporcionados por el usuario
+(por ejemplo, datos ingresados ​​en formularios web, cookies, encabezados HTTP y otros elementos). El sistema vulnerable pasa esos datos a un shell del sistema.
+Con la inyección de comandos, un atacante intenta enviar comandos del sistema operativo para que la aplicación pueda ejecutarlos con los privilegios de la aplicación vulnerable. La inyección de comandos no es lo mismo que la ejecución de código y la inyección de código, que implican la explotación de un desbordamiento de búfer o una vulnerabilidad similar.
+## Vulnerabilidades basadas en autenticación
+Un atacante puede eludir la autenticación en sistemas vulnerables mediante varios métodos.
+Las siguientes son las formas más comunes de aprovechar las vulnerabilidades basadas en autenticación en un sistema afectado:
+- Fuerza bruta de credenciales
+- Secuestro de sesión
+- Redireccionamiento
+- Explotación de credenciales predeterminadas
+- Explotación de credenciales débiles
+- Explotación de vulnerabilidades de Kerberos
+## Ataques de fuerza bruta de credenciales y descifrado de contraseñas
+En un ataque de fuerza bruta de credenciales, el atacante intenta iniciar sesión en una aplicación o un sistema probando diferentes nombres de usuario y contraseñas. Existen dos categorías principales de ataques de fuerza bruta:
+- Ataques de fuerza bruta en línea: en este tipo de ataque, el atacante intenta activamente iniciar sesión en la aplicación directamente utilizando muchas combinaciones diferentes de credenciales. Los ataques de fuerza bruta en línea son fáciles de detectar porque se puede inspeccionar fácilmente una gran cantidad de intentos por parte de un atacante.
+- Ataques de fuerza bruta fuera de línea: en este tipo de ataque, el atacante puede obtener acceso a datos cifrados o contraseñas cifradas. Estos ataques son más difíciles de prevenir y detectar que los ataques en línea. Sin embargo, los ataques fuera de línea requieren un esfuerzo computacional y recursos significativamente mayores por parte del atacante.
+La solidez de las credenciales de usuario y de aplicación tiene un efecto directo en el éxito de los ataques de fuerza bruta. Las credenciales débiles son una de las principales causas de vulneración de credenciales. Cuanto más compleja y larga sea una contraseña (credencial), mejor. Un enfoque aún mejor es utilizar la autenticación multifactor (MFA). El uso de MFA reduce significativamente la probabilidad de éxito de este tipo de ataques.
+Un atacante puede proporcionar a un sistema atacante una lista de palabras que contenga miles de palabras para descifrar contraseñas o credenciales asociadas. El siguiente sitio proporciona enlaces a millones de contraseñas del mundo real: http://wordlists.h4cker.org.
+Los algoritmos criptográficos débiles (como RC4, MD5 y DES) permiten a los atacantes descifrar contraseñas fácilmente.
+
+Los atacantes también pueden utilizar análisis estadísticos y tablas arcoíris contra sistemas que protegen de forma incorrecta las contraseñas con una función hash unidireccional. Una tabla arcoíris es una tabla precalculada para revertir las funciones hash criptográficas y para descifrar hashes de contraseñas. Estas tablas se pueden utilizar para acelerar el proceso de descifrado de hashes de contraseñas.
+Además de los algoritmos de cifrado o hash débiles, los protocolos de seguridad mal diseñados, como Wired Equivalent Privacy (WEP), introducen vías de ataque para comprometer las credenciales de los usuarios y las aplicaciones. Además, si los valores hash se almacenan sin que se los convierta en únicos primero (es decir, sin una sal), es posible obtener acceso a los valores y realizar un ataque de tabla arcoíris.
+Una organización debe implementar técnicas en los sistemas y aplicaciones para limitar los intentos de inicio de sesión y evitar ataques de fuerza bruta. Esos intentos también deben registrarse y auditarse.
+## Secuestro de sesión
+Hay varias formas en las que un atacante puede secuestrar una sesión y varias formas en las que un token de sesión puede verse comprometido:
+- Predicción de tokens de sesión: si los atacantes pueden predecir tokens de sesión, pueden secuestrar fácilmente la sesión web para comprometer aún más el sistema o robar datos.
+- Rastreo de sesión: esto puede ocurrir mediante la recopilación de paquetes de sesiones web no cifradas.
+- Ataque de intermediario (MITM): con este tipo de ataque, el atacante se ubica en la ruta entre el cliente y el servidor web.
+- Ataque de intermediario (MITB): este ataque es similar en su enfoque a un ataque de intermediario; sin embargo, en este caso, se compromete un navegador (o una extensión o un complemento) y se lo utiliza para interceptar y manipular sesiones web entre el usuario y el servidor web.
+Si las aplicaciones web no validan ni filtran los valores de ID de sesión no válidos, pueden utilizarse potencialmente para explotar otras vulnerabilidades web, como la inyección SQL (si los ID de sesión se almacenan en una base de datos relacional) o XSS persistente (si los ID de sesión se almacenan y se reflejan posteriormente en la aplicación web).
+## Credenciales predeterminadas
+Un dicho común en la industria de la seguridad es: "¿Para qué necesitas hackers si tienes contraseñas predeterminadas?". Muchas organizaciones e individuos dejan dispositivos de infraestructura como enrutadores, conmutadores, puntos de acceso inalámbricos e incluso cortafuegos configurados con contraseñas predeterminadas.
+
+Los atacantes pueden identificar y acceder fácilmente a los sistemas que utilizan contraseñas predeterminadas compartidas. Es extremadamente importante cambiar siempre las contraseñas predeterminadas del fabricante y restringir el acceso a la red a los sistemas críticos. Muchos fabricantes ahora requieren que los usuarios cambien las contraseñas predeterminadas durante la configuración inicial, pero algunos no lo hacen.
+
+Los atacantes pueden obtener fácilmente las contraseñas predeterminadas e identificar los sistemas de destino conectados a Internet. Las contraseñas se pueden encontrar en la documentación del producto y en listas compiladas disponibles en Internet. Un ejemplo es www.defaultpassword.com, pero hay decenas de otros sitios que contienen contraseñas y configuraciones predeterminadas en Internet. Es fácil identificar dispositivos que tienen contraseñas predeterminadas y que están expuestos a Internet mediante motores de búsqueda como Shodan (www.shodan.io).
+### Vulnerabilidades de referencia directa a objetos insegura
+Las vulnerabilidades de referencia directa a objetos insegura se pueden explotar cuando las aplicaciones web permiten el acceso directo a objetos según la entrada del usuario. Una explotación exitosa podría permitir a los atacantes eludir la autorización y acceder a recursos que deberían estar protegidos por el sistema (por ejemplo, registros de bases de datos y archivos del sistema). Esta vulnerabilidad se produce cuando una aplicación no desinfecta la entrada del usuario y no realiza las comprobaciones de autorización adecuadas.
+
+Un atacante puede aprovechar las vulnerabilidades de referencia directa a objetos insegura modificando el valor de un parámetro utilizado para apuntar directamente a un objeto. Para explotar este tipo de vulnerabilidad, un atacante debe trazar un mapa de todas las ubicaciones en la aplicación donde se utiliza la entrada del usuario para hacer referencia a objetos directamente. El ejemplo 1-1 muestra cómo se puede utilizar directamente el valor de un parámetro para recuperar un registro de base de datos.
+
+![](img/20241027173353.png)
+
+En este ejemplo, el valor del parámetro customerID se utiliza como índice en una tabla de una base de datos que contiene contactos de clientes. La aplicación toma el valor y consulta la base de datos para obtener el registro de cliente específico. Un atacante podría cambiar el valor 1245 por otro valor y recuperar otro registro de cliente.
+
+En el Ejemplo 1-2, el valor de un parámetro se utiliza directamente para ejecutar una operación en el sistema.
+
+![](img/20241027173524.png)
+
+En el Ejemplo 1-2, el valor del parámetro de usuario (omar) se utiliza para que el sistema cambie la contraseña del usuario. Un atacante puede probar otros nombres de usuario y ver si es posible modificar la contraseña de otro usuario.
+
+Las mitigaciones para este tipo de vulnerabilidad incluyen la validación de entrada, el uso de referencias indirectas a objetos por usuario o por sesión y verificaciones de control de acceso para asegurarse de que el usuario esté autorizado para el objeto solicitado.
+
+Scripting entre sitios Las vulnerabilidades de scripting entre sitios (comúnmente conocidas como XSS) se han convertido en algunas de las vulnerabilidades de aplicaciones web más comunes. Las vulnerabilidades XSS se clasifican en tres categorías principales:
+- XSS reflejado
+- XSS almacenado (persistente)
+- XSS basado en DOM
+
+Los atacantes pueden utilizar técnicas de ofuscación en ataques XSS codificando etiquetas o partes maliciosas del script utilizando Unicode para que el enlace o el contenido HTML quede oculto para el usuario final que navega por el sitio.
+
+Los ataques XSS reflejados (XSS no persistentes) ocurren cuando una aplicación web vulnerable inyecta código o secuencias de comandos maliciosos mediante cualquier método que produzca una respuesta como parte de una solicitud HTTP válida. Un ejemplo de un ataque XSS reflejado es cuando se persuade a un usuario para que siga un enlace malicioso a un servidor vulnerable que inyecta (refleja) el código malicioso en el navegador del usuario. Esto hace que el navegador ejecute el código o secuencia de comandos. En este caso, el servidor vulnerable suele ser un sitio conocido o de confianza.
+
+Algunos ejemplos de métodos de entrega de exploits XSS son los correos electrónicos de phishing, las aplicaciones de mensajería y los motores de búsqueda.
+
+Los ataques XSS almacenados o persistentes ocurren cuando el código o secuencia de comandos maliciosos se almacenan de forma permanente en un servidor vulnerable o malicioso, mediante una base de datos. Estos ataques se llevan a cabo normalmente en sitios web que alojan publicaciones de blogs (formularios de comentarios), foros web y otros métodos de almacenamiento permanente. Un ejemplo de un ataque XSS almacenado es cuando un usuario solicita la información almacenada del servidor vulnerable o malicioso, lo que provoca la inyección de la secuencia de comandos maliciosa solicitada en el navegador de la víctima. En este tipo de ataque, el servidor vulnerable suele ser
+un sitio conocido o de confianza.
+
+El modelo de objetos de documento (DOM) es una interfaz de programación de aplicaciones (API) multiplataforma e independiente del lenguaje que trata un documento HTML, XHTML o XML como una estructura de árbol. Los ataques basados ​​en DOM suelen ser ataques XSS reflejados que se activan al enviar un enlace con entradas que se reflejan en el navegador web. En los ataques XSS basados ​​en DOM, la carga útil nunca se envía al servidor. En cambio, la carga útil solo la procesa el cliente web (navegador).
+
+En un ataque XSS basado en DOM, el atacante envía una URL maliciosa a la víctima y, después de que esta haga clic en el enlace, puede cargar un sitio web malicioso o un sitio que tenga un controlador de ruta DOM vulnerable. Una vez que el navegador muestra el sitio vulnerable, la carga útil ejecuta el ataque en el contexto del usuario en ese sitio.
+
+Uno de los efectos de cualquier tipo de ataque XSS es que la víctima normalmente no se da cuenta de que se ha producido un ataque. Las aplicaciones basadas en DOM utilizan variables globales para gestionar la información del lado del cliente. A menudo, los desarrolladores crean aplicaciones no seguras que colocan información confidencial en el DOM (por ejemplo, tokens, URL de perfil público, URL privadas para el acceso a la información, valores OAuth entre dominios e incluso credenciales de usuario como variables). Es una buena práctica evitar almacenar cualquier información confidencial en el DOM al crear aplicaciones web.
+
+Una explotación exitosa podría dar como resultado la instalación o ejecución de código malicioso, la vulneración de cuentas, el secuestro de cookies de sesión, la revelación o modificación de archivos locales o la redirección del sitio.
+
+Los resultados de los ataques XSS son los mismos independientemente del vector. Aunque las vulnerabilidades XSS son fallas en una aplicación web, el ataque normalmente se dirige al usuario final. Generalmente, las vulnerabilidades XSS se encuentran en los siguientes casos:
+- Campos de búsqueda que reflejan una cadena de búsqueda al usuario
+- Encabezados HTTP
+- Campos de entrada que reflejan datos del usuario
+- Mensajes de error que devuelven texto proporcionado por el usuario
+- Campos ocultos que pueden incluir datos ingresados ​​por el usuario
+- Aplicaciones (o sitios web) que muestran datos proporcionados por el usuario
+El ejemplo 1-3 demuestra una prueba XSS que se puede realizar desde la barra de direcciones de un navegador.
+
+![](img/20241027175457.png)
+
+El ejemplo 1-4 demuestra una prueba XSS que se puede realizar en un campo de entrada de usuario en un formulario web.
+
+![](img/20241027175537.png)
+### Falsificación de solicitud entre sitios
+Los ataques de falsificación de solicitud entre sitios (CSRF o XSRF) ocurren cuando se transmiten comandos no autorizados desde un usuario en el que la aplicación confía. Los ataques CSRF son diferentes de los ataques XSS porque explotan la confianza que una aplicación tiene en el navegador de un usuario. Las vulnerabilidades CSRF también se conocen como ataques de un solo clic o de uso de sesión.
+
+Los ataques CSRF generalmente afectan a las aplicaciones (o sitios web) que dependen de la identidad de un usuario. Los atacantes pueden engañar al navegador del usuario para que envíe solicitudes HTTP a un sitio web de destino. Un ejemplo de un ataque CSRF es un usuario autenticado por la aplicación mediante una cookie guardada en el navegador que envía sin saberlo una solicitud HTTP a un sitio que confía en el usuario, lo que posteriormente desencadena una acción no deseada.
+### Ataques de manipulación de cookies
+Los ataques de manipulación de cookies a menudo se conocen como ataques (o vulnerabilidades) basados ​​en DOM almacenado. La manipulación de cookies es posible cuando las aplicaciones vulnerables almacenan la entrada del usuario y luego la incorporan en una respuesta dentro de una parte del DOM. Esta entrada es procesada posteriormente de manera insegura por un script del lado del cliente. Un atacante puede usar una cadena de JavaScript (u otros scripts) para activar la vulnerabilidad basada en DOM. Dichos scripts pueden escribir datos controlables en el valor de una cookie.
+
+Un atacante puede aprovechar las vulnerabilidades basadas en DOM almacenadas para crear una URL que establezca un valor arbitrario en la cookie de un usuario. El impacto de una vulnerabilidad basada en DOM almacenada depende del rol que desempeñe la cookie dentro de la aplicación.
+## Condiciones de carrera
+Una condición de carrera ocurre cuando un sistema o una aplicación intenta realizar dos o más operaciones al mismo tiempo. Sin embargo, debido a la naturaleza de un sistema o una aplicación de este tipo, las operaciones deben realizarse en la secuencia adecuada para que se realicen correctamente. Cuando un atacante explota una vulnerabilidad de este tipo, tiene una pequeña ventana de tiempo entre el momento en que un control de seguridad entra en vigencia y el momento en que se realiza el ataque. La complejidad del ataque en condiciones de carrera es muy alta. En otras palabras, las condiciones de carrera son muy difíciles de explotar.
+
+Las condiciones de carrera también se conocen como ataques de tiempo de verificación a tiempo de uso (TOCTOU). Un ejemplo de una condición de carrera es un sistema de administración de seguridad que envía una configuración a un dispositivo de seguridad (como un firewall o un sistema de prevención de intrusiones) de modo que el proceso
+reconstruya las listas de control de acceso (ACL) y las reglas del sistema. Un atacante podría tener una ventana de tiempo muy pequeña en la que podría eludir esos controles de seguridad hasta que surtan efecto en el dispositivo administrado.
+## API sin protección
+Las interfaces de programación de aplicaciones (API) se utilizan en todas partes hoy en día. Un gran número de aplicaciones modernas utilizan algún tipo de API para permitir que otros sistemas interactúen con la aplicación. Desafortunadamente, muchas API carecen de controles adecuados y son difíciles de monitorear. La amplitud y complejidad de las API también dificultan la automatización de pruebas de seguridad efectivas.
+
+Hay algunos métodos o tecnologías detrás de las API modernas:
+- Protocolo simple de acceso a objetos (SOAP): este protocolo de acceso a servicios web basado en estándares fue desarrollado originalmente por Microsoft y ha sido utilizado por numerosas aplicaciones heredadas durante muchos años. SOAP utiliza exclusivamente XML para proporcionar servicios API.
+
+Las especificaciones basadas en XML se rigen por documentos de definición de esquema XML (XSD). SOAP se creó originalmente para reemplazar soluciones más antiguas como el Modelo de objetos de componentes distribuidos (DCOM) y la Arquitectura de intermediario de solicitudes de objetos comunes (CORBA). 
+
+Puede encontrar las especificaciones SOAP más recientes en www.w3.org/TR/soap.
+
+- Transferencia de estado representacional (REST): este estándar API es más fácil de usar que SOAP. Utiliza JSON en lugar de XML y utiliza estándares como Swagger y la especificación OpenAPI (www.openapis.org) para facilitar la documentación y fomentar la adopción.
+- GraphQL: GraphQL es un lenguaje de consulta para API que proporciona muchas herramientas para desarrolladores. GraphQL se utiliza ahora para muchas aplicaciones móviles y paneles de control en línea. GraphQL es compatible con muchos lenguajes diferentes. Puede obtener más información sobre GraphQL en https://graphql.org/code.
+
+SOAP y REST utilizan el protocolo HTTP; sin embargo, SOAP se limita a un conjunto más estricto de patrones de mensajería API que REST.
+
+Una API a menudo proporciona una hoja de ruta que describe la implementación subyacente de una aplicación. Esta hoja de ruta puede brindar a los evaluadores de penetración pistas valiosas sobre los vectores de ataque que de otra manera podrían pasar por alto. La documentación de la API puede proporcionar un gran nivel de detalle que puede ser muy valioso para un profesional de seguridad, así como para los atacantes. La documentación de la API puede incluir lo siguiente:
+- Swagger (OpenAPI): Swagger es un marco moderno de documentación y desarrollo de API que es la base de la Especificación OpenAPI (OAS). Puede obtener información adicional sobre Swagger en https://swagger.io. La especificación OAS está disponible en https://github.com/OAI/OpenAPI-Specification.
+- Documentos del lenguaje de descripción de servicios web (WSDL): WSDL es un lenguaje basado en XML que se utiliza para documentar la funcionalidad de un servicio web. Se puede acceder a la especificación WSDL en www.w3.org/TR/wsdl20-primer.
+- Documentos del lenguaje de descripción de aplicaciones web (WADL): WADL es un lenguaje basado en XML para describir aplicaciones web. La especificación WADL se puede obtener en www.w3.org/Submission/wadl.
+## Ataques de retorno a LibC y desbordamientos de búfer
+Un ataque de retorno a libc (o ret2libc) normalmente comienza con un desbordamiento de búfer. En este tipo de ataque, la dirección de retorno de una subrutina en una pila de llamadas se reemplaza por la dirección de una subrutina que ya está presente en la memoria ejecutable del proceso. Esto se hace para evitar potencialmente la función del bit de no ejecución (NX) y permitir que los atacantes inyecten su propio código.
+
+Los sistemas operativos que admiten una pila no ejecutable ayudan a proteger contra la ejecución de código después de que se explota una vulnerabilidad de desbordamiento de búfer. Sin embargo, una pila no ejecutable no puede evitar un ataque ret2libc porque en este ataque, solo se utiliza el código ejecutable existente. Otra técnica, llamada protección contra destrucción de pila, puede prevenir u obstruir la explotación de la ejecución de código porque puede detectar la corrupción de la pila y potencialmente puede "limpiar" el segmento comprometido.
+
+Se puede utilizar una técnica llamada blindaje ASCII para mitigar los ataques ret2libc. Cuando se implementa el blindaje ASCII, la dirección de cada biblioteca del sistema (como libc) contiene un byte NULL (0x00) que se inserta en los primeros 0x01010101 bytes de memoria. Esto suele ser unas pocas páginas más de 16 MB y se denomina región de blindaje ASCII porque cada dirección hasta este valor (pero sin incluirlo) contiene al menos un byte NULL. Cuando se implementa esta metodología, un atacante no puede colocar código que contenga esas direcciones utilizando funciones de manipulación de cadenas como strcpy().
+
+Por supuesto, esta técnica no protege el sistema si el atacante encuentra una forma de desbordar bytes NULL en la pila. Un mejor enfoque es utilizar la técnica de aleatorización del diseño del espacio de direcciones (ASLR), que mitiga el ataque en sistemas de 64 bits. Cuando se implementa ASLR, las ubicaciones de memoria de las funciones son aleatorias. Sin embargo, ASLR no es muy efectivo en sistemas de 32 bits, porque solo hay 16 bits disponibles para la aleatorización y un atacante puede derrotar a dicho sistema mediante ataques de fuerza bruta.
+## OWASP Top 10
+El Proyecto de Seguridad de Aplicaciones Web Abiertas (OWASP) es una organización benéfica sin fines de lucro que lidera varias iniciativas de toda la industria para promover la seguridad de las aplicaciones y el software. La organización enumera las 10 vulnerabilidades más comunes contra las aplicaciones en la siguiente dirección:
+www.owasp.org/index.php/Category:OWASP_Top_Ten_Project
+## Vulnerabilidades de seguridad en software de código abierto
+La aplicación de parches para vulnerabilidades de seguridad en software comercial y de código abierto es uno de los procesos más importantes de cualquier organización. Una organización puede utilizar las siguientes tecnologías y sistemas para mantener un programa de gestión de vulnerabilidades adecuado:
+- Software y escáneres de gestión de vulnerabilidades, como Qualys, Nexpose y Nessus
+- Herramientas de análisis de composición de software, como BlackDuck, FlexNet Code Insight (antes conocida como Palamida), SourceClear y whiteSource
+- Fuentes de vulnerabilidades de seguridad, como la lista CVE de MITRE, la base de datos nacional de vulnerabilidades (NVD) del NIST, VulnDB y Recorded Future
+## Sistemas de seguridad de red
+La certificación Cisco CyberOps Associate supone que está familiarizado con enrutadores, conmutadores, firewalls, sistemas de detección de intrusiones (IDS) y sistemas de prevención de intrusiones (IPS). Sin embargo, aquí hay una actualización rápida para su referencia. A lo largo de los años se han inventado muchos dispositivos de seguridad de red para hacer cumplir las políticas y mantener la visibilidad de todo lo que sucede en la red. Estos dispositivos de seguridad de red incluyen lo siguiente:
+- Cortafuegos tradicionales
+- Cortafuegos de última generación
+- Cortafuegos personales
+- Sistemas de detección de intrusiones
+- Sistemas de prevención de intrusiones tradicionales y de última generación
+- Sistemas de detección de anomalías
+- Protección avanzada contra malware (AMP)
+- Dispositivos de seguridad web
+- Dispositivos de seguridad de correo electrónico
+- Sistemas de gestión de identidad
+## Cortafuegos tradicionales
+Normalmente, los cortafuegos son dispositivos que se colocan o implementan entre una red confiable y una red que no lo es, como se ilustra en la Figura 1-7.
+
+
+![](img/20241027212503.png)
+
+En la Figura 1-7, la red confiable está etiquetada como la red “interna” y la red no confiable está etiquetada como la red “externa”. La red no confiable en este caso está conectada a *Internet. Esta es la nomenclatura típica que verá a menudo en la documentación de Cisco y de otros fabricantes. Cuando los firewalls están conectados a Internet, a menudo se los denomina firewalls de borde de Internet. Una comprensión detallada de cómo funcionan los firewalls y sus tecnologías relacionadas es extremadamente importante para todos los profesionales de seguridad de redes. Este conocimiento no solo lo ayuda a configurar y administrar la seguridad de sus redes de manera precisa y eficaz, sino que también le permite comprender cómo aplicar políticas y lograr una segmentación de red adecuada para su entorno.
+
+Varias soluciones de firewall ofrecen la aplicación de políticas de usuario y aplicación para brindar protección para diferentes tipos de amenazas de seguridad. Estas soluciones a menudo brindan capacidades de registro que permiten a los administradores de seguridad identificar, investigar, validar y mitigar dichas amenazas.
+
+Además, varias aplicaciones de software pueden ejecutarse en un sistema para proteger solo ese host.
+
+Estos tipos de aplicaciones se conocen como firewalls personales. Esta sección incluye una descripción general de los firewalls de red y sus tecnologías relacionadas. Más adelante en este capítulo, aprenderá los detalles sobre los firewalls personales.
+
+Los firewalls basados ​​en red proporcionan funciones clave que se utilizan para la seguridad perimetral, como la traducción de direcciones de red (NAT), las listas de control de acceso y la inspección de aplicaciones. La tarea principal de un firewall de red es denegar o permitir el tráfico que intenta ingresar o salir de la red según políticas y reglas explícitas preconfiguradas. Los firewalls se implementan a menudo en varias otras partes de la red para proporcionar segmentación de red dentro de la infraestructura corporativa y también en los centros de datos. Los procesos utilizados para permitir o bloquear el tráfico pueden incluir los siguientes:
+- Técnicas simples de filtrado de paquetes
+- Proxies de aplicaciones
+- Traducción de direcciones de red
+- Firewalls de inspección con estado
+- Firewalls con reconocimiento de contexto de última generación
+## Técnicas de filtrado de paquetes
+El objetivo de los filtros de paquetes es simplemente controlar el acceso a segmentos de red específicos definiendo qué tráfico puede pasar a través de ellos. Por lo general, inspeccionan el tráfico entrante en la capa de transporte del modelo de interconexión de sistemas abiertos (OSI). Por ejemplo, los filtros de paquetes pueden analizar paquetes de protocolo de control de transmisión (TCP) o protocolo de datagramas de usuario (UDP) y compararlos con un conjunto de reglas predeterminadas llamadas listas de control de acceso. Inspeccionan los siguientes elementos dentro de un paquete:
+- Dirección de origen
+- Dirección de destino
+- Puerto de origen
+- Puerto de destino
+- Protocolo
+
+Las ACL se configuran normalmente en cortafuegos, pero también se pueden configurar en dispositivos de infraestructura de red como enrutadores, conmutadores, controladores de LAN inalámbrica (WLC) y otros.
+
+Cada entrada de una ACL se denomina entrada de control de acceso (ACE). Estas ACE pueden clasificar los paquetes inspeccionando los encabezados de Capa 2 a Capa 4 en busca de una serie de parámetros, incluidos los siguientes:
+- Información de protocolo de Capa 2, como EtherTypes
+- Información de protocolo de Capa 3, como ICMP, TCP o UDP
+- Información de encabezado de Capa 3, como direcciones IP de origen y destino
+- Información de encabezado de Capa 4, como puertos TCP o UDP de origen y destino
+
+Una vez que se ha configurado correctamente una ACL, puede aplicarla a una interfaz para filtrar el tráfico. El firewall o el dispositivo de red pueden filtrar paquetes tanto en la dirección de entrada como de salida en una interfaz. Cuando se aplica una ACL de entrada a una interfaz, el dispositivo de seguridad analiza los paquetes en comparación con las ACE después de recibirlos. Si la ACL permite un paquete, el firewall continúa procesándolo y, finalmente, lo pasa por la interfaz de salida.
+
+La gran diferencia entre una ACL de enrutador y una ACL de Cisco ASA (un firewall con estado) es que solo el primer paquete de un flujo está sujeto a una ACL en el dispositivo de seguridad (firewall con estado). Después de eso, se crea la conexión y la ACL no comprueba los paquetes posteriores que coinciden con esa conexión. Si la ACL rechaza un paquete, el dispositivo de seguridad lo descarta y genera un mensaje de syslog que indica que se ha producido dicho evento.
+
+Si se aplica una ACL de salida en una interfaz, el cortafuegos procesa los paquetes enviándolos a través de los diferentes procesos (NAT, QoS y VPN) y luego aplica las ACE configuradas antes de transmitir los paquetes por el cable. El cortafuegos transmite los paquetes solo si la ACL de salida les permite salir en esa interfaz. Si cualquiera de las ACE rechaza los paquetes, el dispositivo de seguridad los descarta y genera un mensaje de syslog que indica que se ha producido dicho evento.
+
+A continuación, se presentan algunas de las características importantes de una ACL configurada en un Cisco ASA o en un firewall basado en zonas de Cisco IOS:
+- Cuando se agrega una nueva ACE a una ACL existente, se adjunta al final de la ACL.
+- Cuando un paquete ingresa al firewall, las ACE se evalúan en orden secuencial. Por lo tanto, el orden de una ACE es fundamental. Por ejemplo, si tiene una ACE que permite que pase todo el tráfico IP y luego crea otra ACE para bloquear todo el tráfico IP, los paquetes nunca se evaluarán en relación con la segunda ACE porque todos los paquetes coincidirán con la primera entrada de ACE.
+- Hay una denegación implícita al final de todas las ACL. Si un paquete no coincide con una ACE configurada, se descarta y se genera un syslog.
+- A cada interfaz se le asigna un nivel de seguridad. Cuanto más alto sea el nivel de seguridad, más segura será. En los firewalls Cisco ASA tradicionales, los niveles de seguridad van de 0 (menos seguro) a 100 (más seguro). De manera predeterminada, a la interfaz externa se le asigna un nivel de seguridad de 0 y a la interfaz interna se le asigna un nivel de seguridad de 100. En Cisco ASA, de manera predeterminada, no es necesario definir una ACE para permitir el tráfico desde una interfaz de alto nivel de seguridad a una interfaz de bajo nivel de seguridad. Sin embargo, si desea restringir los flujos de tráfico desde una interfaz de alto nivel de seguridad a una interfaz de bajo nivel de seguridad, puede definir una ACL. Si configura una ACL para una interfaz de alto nivel de seguridad a una interfaz de bajo nivel de seguridad, deshabilita el permiso implícito de esa interfaz. Todo el tráfico ahora está sujeto a las entradas definidas en esa ACL.
+- También en Cisco ASA, una ACL debe permitir explícitamente el tráfico que atraviesa el dispositivo de seguridad desde una interfaz de nivel de seguridad inferior a una interfaz de nivel de seguridad superior del firewall. La ACL debe aplicarse a la interfaz de nivel de seguridad inferior.
+- Las ACL (extendidas o IPv6) deben aplicarse a una interfaz para filtrar el tráfico que pasa a través del dispositivo de seguridad.
+- Puede vincular una ACL extendida y una ACL EtherType en cada dirección de una interfaz al mismo tiempo.
+- Puede aplicar la misma ACL a varias interfaces. Sin embargo, esto no se considera una buena práctica de seguridad porque se pueden aplicar políticas de seguridad superpuestas y redundantes.
+- Puede utilizar las ACL para controlar el tráfico a través del dispositivo de seguridad, así como para controlar el tráfico hacia el dispositivo de seguridad. Las ACL que controlan el tráfico hacia el dispositivo se aplican de forma diferente a las ACL que filtran el tráfico a través del firewall. Las ACL se aplican mediante grupos de acceso. Las ACL que controlan el tráfico hacia el dispositivo de seguridad se denominan ACL de plano controlado.
+- Cuando el tráfico TCP o UDP fluye a través del dispositivo de seguridad, se permite automáticamente el paso del tráfico de retorno porque las conexiones se consideran establecidas y bidireccionales.
+- Otros protocolos, como ICMP, se consideran conexiones unidireccionales; por lo tanto, debe permitir entradas de ACL en ambas direcciones. Existe una excepción para el tráfico ICMP cuando habilita el motor de inspección ICMP.
+
+Cisco ASA admite cinco tipos diferentes de ACL para proporcionar una solución flexible y escalable para filtrar paquetes no autorizados en la red:
+- ACL estándar
+- ACL extendidas
+- ACL IPv6
+- ACL EtherType
+- ACL Webtype
+## ACL estándar
+Las ACL estándar se utilizan para identificar paquetes en función de sus direcciones IP de destino. Estas ACL se pueden utilizar en escenarios como túneles divididos para los túneles de red privada virtual (VPN) de acceso remoto y redistribución de rutas dentro de mapas de rutas para implementaciones de enrutamiento dinámico (OSPF, BGP, etc.). Sin embargo, estas ACL no se pueden aplicar a una interfaz para filtrar el tráfico. Una ACL estándar se puede utilizar solo si el dispositivo de seguridad se ejecuta en modo enrutado. En modo enrutado, Cisco ASA enruta los paquetes de una subred a otra subred actuando como un salto de capa 3 adicional en la red.
+## ACL extendidas
+Las ACL extendidas, las ACL más comúnmente implementadas, pueden clasificar paquetes según los siguientes atributos:
+- Direcciones IP de origen y destino
+- Protocolos de capa 3
+- Puertos TCP y UDP de origen y/o destino
+- Tipo ICMP de destino para paquetes ICMP
+Una ACL extendida se puede utilizar para el filtrado de paquetes de interfaz, la clasificación de paquetes QoS, la identificación de paquetes para el cifrado NAT y VPN, y una serie de otras funciones. Estas ACL se pueden configurar en Cisco ASA en modo enrutado y transparente.
+## ACL EtherType
+Las ACL EtherType se pueden utilizar para filtrar tráfico basado en IP y no basado en IP al verificar el campo de código de tipo Ethernet en el encabezado de capa 2. El tráfico basado en IP utiliza un valor de código de tipo Ethernet de 0x800, mientras que Novell IPX utiliza 0x8137 o 0x8138, según la versión de Netware.
+
+Una ACL EtherType se puede configurar solo si el dispositivo de seguridad se ejecuta en modo transparente. Al igual que cualquier otra ACL, la ACL EtherType tiene una denegación implícita al final. Sin embargo, esta denegación implícita no afecta el tráfico IP que pasa a través del dispositivo de seguridad. Como resultado, puede aplicar tanto ACL EtherType como extendidas a cada dirección de una interfaz. Si configura una denegación explícita al final de una ACL EtherType, bloquea el tráfico IP incluso si se define una ACL extendida para pasar esos paquetes.
+## ACL Webtype
+Una ACL Webtype permite a los administradores de dispositivos de seguridad restringir el tráfico que pasa a través de los túneles VPN SSL. En los casos en los que se define una ACL Webtype pero no hay ninguna coincidencia para un paquete, el comportamiento predeterminado es descartar el paquete debido a la denegación implícita. Por otro lado, si no se define ninguna ACL, el dispositivo de seguridad permite que el tráfico pase a través de ella.
+## Un ejemplo de ACL
+El ejemplo 1-5 muestra la configuración de la interfaz de línea de comandos (CLI) de una ACL extendida. La ACL se llama outside_access_in y está compuesta por cuatro ACE. Las dos primeras ACE permiten el tráfico HTTPS destinado a 10.10.20.111 desde dispositivos en la interfaz externa, mientras que las dos últimas ACE permiten el acceso SMTP a 10.10.20.112. Se recomienda agregar comentarios a una ACL porque ayuda a otros a reconocer su función. En el Ejemplo 1-5, el administrador del sistema agregó el comentario de ACL: “ACL para bloquear el tráfico entrante excepto HTTPS y SMTP”.
+
+![](img/20241028195502.png)
+
+74
