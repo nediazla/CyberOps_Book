@@ -481,6 +481,7 @@ Tabla 1-2 Rangos de direcciones privadas según RFC 1918
 | A     | 10.0.0.0 a 10.255.255.255     | 1     | 16,777,214             |
 | B     | 172.16.0.0 a 172.31.155.155   | 16    | 65,534                 |
 | C     | 192.168.0.0 a 192.168.255.255 | 256   | 254                    |
+
 Es importante pensar en los diferentes espacios de direcciones privadas cuando planifica su red (por ejemplo, la cantidad de hosts y subredes que se pueden configurar). Una planificación y preparación cuidadosas permiten ahorrar tiempo de manera sustancial si se producen cambios en el futuro.
 ## Traducción de direcciones de puerto
 Normalmente, los firewalls utilizan una técnica denominada Traducción de direcciones de puerto (PAT). Esta función, que es un subconjunto de la función NAT, permite que muchos dispositivos de la red interna protegida compartan una dirección IP mediante la inspección de la información de capa 4 del paquete. Esta dirección compartida suele ser la dirección pública del firewall; sin embargo, se puede configurar con cualquier otra dirección IP pública disponible. La Figura 1-9 muestra cómo funciona PAT.
