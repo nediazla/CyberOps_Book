@@ -448,4 +448,122 @@ El ejemplo 1-5 muestra la configuración de la interfaz de línea de comandos (C
 
 ![](img/20241028195502.png)
 
-74
+Recuerde siempre que hay una denegación implícita al final de cualquier ACL.
+
+El examen de Fundamentos de operaciones de ciberseguridad de Cisco (200-201 CBROPS) no requiere que conozca detalles sobre cómo configurar listas de control de acceso en diferentes dispositivos Cisco. Sin embargo, es bueno que se familiarice con los conceptos de alto nivel de las ACL tradicionales y los beneficios de las políticas de control de acceso modernas que están presentes en los firewalls de próxima generación. Por ejemplo, los filtros de paquetes tradicionales no suelen inspeccionar campos adicionales de capa 3 y capa 4, como números de secuencia, indicadores de control TCP y campos de reconocimiento TCP (ACK). Los firewalls que inspeccionan dichos campos e indicadores se denominan firewalls con estado. Más adelante en este capítulo, en la sección “Firewalls de inspección con estado”, aprenderá cómo funcionan los firewalls con estado. Además, los firewalls de próxima generación le permiten
+crear políticas más granulares relacionadas con aplicaciones, usuarios y otros contextos para defender mejor su organización.
+
+Varios firewalls de filtrado de paquetes también pueden inspeccionar la información del encabezado del paquete para averiguar si el paquete proviene de una conexión nueva o existente. Los firewalls de filtrado de paquetes simples tienen varias limitaciones y debilidades:
+- Sus ACL o reglas pueden ser relativamente grandes y difíciles de administrar.
+- Pueden ser engañados para permitir el acceso no autorizado a paquetes falsificados. Los atacantes pueden orquestar un paquete con una dirección IP autorizada por la ACL.
+- Numerosas aplicaciones pueden crear múltiples conexiones en puertos negociados arbitrariamente.
+
+Esto dificulta determinar qué puertos se seleccionan y se utilizan hasta que se completa la conexión. Ejemplos de este tipo de aplicaciones son las aplicaciones multimedia, como las aplicaciones de transmisión de audio y video. Los filtros de paquetes no entienden los protocolos de capa superior subyacentes que utilizan este tipo de aplicaciones, y brindar soporte para este tipo de aplicaciones es difícil porque las ACL deben configurarse manualmente en los firewalls de filtrado de paquetes.
+## Proxies de aplicación
+Los proxies de aplicación, o servidores proxy, son dispositivos que funcionan como agentes intermediarios en nombre de los clientes que se encuentran en una red privada o protegida. Los clientes de la red protegida envían solicitudes de conexión al proxy de aplicación para transferir datos a la red desprotegida o a Internet. En consecuencia, el proxy de aplicación (a veces denominado proxy web) envía la solicitud en nombre del cliente interno. La mayoría de los firewalls proxy funcionan en la capa de aplicación del modelo OSI. La mayoría de los firewalls proxy pueden almacenar información en caché para acelerar sus transacciones. Esta es una gran herramienta para redes que tienen numerosos servidores que experimentan un alto uso. Además, los firewalls proxy pueden proteger contra algunos ataques específicos del servidor web; sin embargo, en la mayoría de los casos, no brindan ninguna protección contra la aplicación web en sí.
+## Traducción de direcciones de red
+Varios dispositivos de capa 3 pueden proporcionar servicios de traducción de direcciones de red (NAT). El dispositivo de capa 3 traduce las direcciones IP privadas (o reales) del host interno a una dirección pública enrutable (o mapeada).
+
+Cisco utiliza la terminología de direcciones IP “reales” y “asignadas” al describir NAT. La dirección IP real es la dirección que se configura en el host antes de traducirla. La dirección IP asignada es la dirección a la que se traduce la dirección real.
+
+La Figura 1-8 demuestra cómo un host dentro de un firewall con la dirección privada 10.10.10.123 se traduce a la dirección pública 209.165.200.227.
+
+![](img/20241029111912.png)
+
+Los cortafuegos suelen utilizar NAT; sin embargo, otros dispositivos, como enrutadores y puntos de acceso inalámbricos, brindan compatibilidad con NAT. Al utilizar NAT, el cortafuegos oculta las direcciones privadas internas de la red desprotegida y expone solo su propia dirección o rango público.
+
+Esto permite que un profesional de redes utilice cualquier espacio de dirección IP como red interna. Una práctica recomendada es utilizar los espacios de direcciones que están reservados para uso privado (consulte RFC 1918, “Asignación de direcciones para Internet privadas”). La Tabla 1-2 enumera los rangos de direcciones privadas especificados en RFC 1918.
+
+Tabla 1-2 Rangos de direcciones privadas según RFC 1918
+
+| Clase | Rango de direcciones Ip       | Redes | Numero de dispositivos |
+| ----- | ----------------------------- | ----- | ---------------------- |
+| A     | 10.0.0.0 a 10.255.255.255     | 1     | 16,777,214             |
+| B     | 172.16.0.0 a 172.31.155.155   | 16    | 65,534                 |
+| C     | 192.168.0.0 a 192.168.255.255 | 256   | 254                    |
+Es importante pensar en los diferentes espacios de direcciones privadas cuando planifica su red (por ejemplo, la cantidad de hosts y subredes que se pueden configurar). Una planificación y preparación cuidadosas permiten ahorrar tiempo de manera sustancial si se producen cambios en el futuro.
+## Traducción de direcciones de puerto
+Normalmente, los firewalls utilizan una técnica denominada Traducción de direcciones de puerto (PAT). Esta función, que es un subconjunto de la función NAT, permite que muchos dispositivos de la red interna protegida compartan una dirección IP mediante la inspección de la información de capa 4 del paquete. Esta dirección compartida suele ser la dirección pública del firewall; sin embargo, se puede configurar con cualquier otra dirección IP pública disponible. La Figura 1-9 muestra cómo funciona PAT.
+
+![](img/20241029112733.png)
+
+Como se ilustra en la Figura 1-9, varios hosts en una red confiable etiquetada como “interna” están configurados con una dirección de la red 10.10.10.0 con una máscara de subred de 24 bits. Cisco ASA realiza PAT para los hosts internos y traduce las direcciones 10.10.10.x a su propia dirección (209.165.200.228). En este ejemplo, el Host A envía un paquete de puerto TCP 80 al servidor web ubicado en la red desprotegida “externa”. Cisco ASA traduce la solicitud de la dirección IP original 10.10.10.8 del Host A a su propia dirección. Para ello, selecciona aleatoriamente un puerto de origen de Capa 4 diferente al reenviar la solicitud al servidor web. En este ejemplo, el puerto de origen TCP se modifica de 1024 a 1188.
+## Traducción estática
+Se utiliza una metodología diferente cuando los hosts de la red desprotegida necesitan iniciar una nueva conexión con hosts específicos detrás del dispositivo NAT. Se configura el firewall para permitir dichas conexiones creando una asignación estática uno a uno de la dirección IP pública (asignada) a la dirección del dispositivo interno (real) protegido. Por ejemplo, la NAT estática se puede configurar cuando un servidor web reside en la red interna y tiene una dirección IP privada, pero necesita ser contactado por hosts ubicados en la red desprotegida o Internet. La Figura 1-8 demuestra cómo funciona la traducción estática. La dirección del host (10.10.10.123) se traduce estáticamente a una dirección en la red externa (209.165.200.227, en este caso). Esto permite que el host externo inicie una conexión con el servidor web dirigiendo el tráfico a 209.165.200.227. El dispositivo que realiza la NAT luego traduce y envía la solicitud al servidor web en la red interna.
+
+Los firewalls como Cisco ASA, Firepower Threat Defense (FTD), los firewalls basados ​​en zonas Cisco IOS y otros pueden realizar todas estas operaciones NAT. Sin embargo, la traducción de direcciones no se limita a los firewalls. Hoy en día, todo tipo de dispositivos de red de gama baja, como pequeñas oficinas o oficinas en el hogar (SOHO) y enrutadores inalámbricos, pueden realizar diferentes técnicas NAT.
+## Firewalls de inspección con estado
+Los firewalls de inspección con estado ofrecen mayores ventajas en comparación con los firewalls de filtrado de paquetes simples. Realizan un seguimiento de cada paquete que pasa por sus interfaces al garantizar que sean conexiones válidas y establecidas. Examinan no solo el contenido del encabezado del paquete, sino también la información de la capa de aplicación dentro de la carga útil. Posteriormente, se pueden crear diferentes reglas en el firewall para permitir o denegar el tráfico en función de patrones de carga útil específicos. Un firewall con estado monitorea el estado de la conexión y mantiene una base de datos con esta información, generalmente llamada tabla de estado. El estado de la conexión detalla si dicha conexión se ha establecido, cerrado, restablecido o se está negociando. Estos mecanismos ofrecen protección para diferentes tipos de ataques a la red.
+## Zonas desmilitarizadas
+Los firewalls se pueden configurar para separar múltiples segmentos de red (o zonas), generalmente llamadas zonas desmilitarizadas (DMZ). Estas zonas brindan seguridad a los sistemas que residen dentro de ellas con diferentes niveles de seguridad y políticas entre ellas. Las DMZ pueden tener varios propósitos; Por ejemplo, pueden servir como segmentos en los que reside una granja de servidores web o como conexiones de extranet a un socio comercial. La Figura 1-10 muestra un firewall con una DMZ.
+
+![](img/12243253-B7E4-491D-A162-EFFEEEF76283.png)
+
+Las DMZ minimizan la exposición de los dispositivos y clientes en su red interna al permitir que solo los servicios reconocidos y administrados en esos hosts sean accesibles desde Internet. En la Figura 1-10, la DMZ aloja servidores web a los que pueden acceder los hosts internos y de Internet. En
+organizaciones grandes, puede encontrar varios firewalls en diferentes segmentos y DMZ.
+## Los firewalls proporcionan segmentación de red
+Los firewalls pueden proporcionar segmentación de red al mismo tiempo que aplican políticas entre esos segmentos. En la Figura 1-11, un firewall segmenta y aplica políticas entre tres redes en la red corporativa general. La primera red es el departamento de finanzas, la segunda es el departamento de ingeniería y la tercera es el departamento de ventas.
+
+![](img/{C7D7D134-1F15-4C6D-A46E-20A599A79EE3}.png)
+
+## Segmentación basada en aplicaciones y microsegmentación
+Otro dilema es la comunicación de máquina a máquina entre diferentes sistemas y aplicaciones. ¿Cómo se puede segmentar y proteger de manera eficaz?
+
+En los entornos virtualizados y en contenedores actuales, es posible que el tráfico entre aplicaciones nunca salga de un dispositivo físico o servidor, como se ilustra en la Figura 1-12.
+
+![](img/{100D5F44-32DB-4D3A-B443-64933BCC3B6D}.png)
+
+Por eso la microsegmentación es tan popular en la actualidad. Una solución del pasado consistía en incluir cortafuegos virtuales entre máquinas virtuales (VM), como se muestra en la Figura 1-13.
+
+![](img/{A8E435BB-D7E7-4D72-A0FC-227D6C4399CC}.png)
+
+La comunicación de máquina a máquina (o de aplicación a aplicación) también debe segmentarse dentro de una organización. Por ejemplo, ¿sus servidores de Active Directory (AD) necesitan comunicarse con servidores de Protocolo de tiempo de red (NTP)? ¿Cuál es su relación e interacción de datos?
+
+Las funciones de microsegmentación que ofrecen las soluciones modernas como Cisco Application Centric Infrastructure (ACI) ofrecen un nuevo nivel de capacidades de segmentación. Cisco ACI permite a las organizaciones asignar automáticamente puntos finales a zonas de seguridad lógicas llamadas grupos de puntos finales (EPG). Los EPG se utilizan para agrupar máquinas virtuales dentro de un inquilino y aplicarles políticas de filtrado y reenvío. Estos EPG se basan en varios atributos basados ​​en la red o en la máquina virtual.
+
+Un microsegmento en ACI también suele denominarse EPG μSeg. Puede agrupar puntos finales en EPG de aplicaciones existentes en nuevos EPG de microsegmentos (μSeg) y configurar atributos basados ​​en la red o en la máquina virtual para esos EPG μSeg. Con estos EPG μSeg, puede aplicar políticas dinámicas. También puede aplicar políticas a cualquier punto final dentro del inquilino. Por ejemplo,
+digamos que desea asignar servidores web a un EPG y luego aplicar políticas similares.
+
+De manera predeterminada, todos los puntos finales dentro de un EPG pueden comunicarse entre sí. También puede restringir el acceso si este EPG web contiene una combinación de servidores web de producción y desarrollo.
+
+Para lograr esto, puede crear un nuevo EPG y asignar puntos finales automáticamente según su atributo de nombre de máquina virtual, como prod-xxxx o dev-xxx.
+
+La microsegmentación en Cisco ACI se puede lograr mediante la integración con vCenter o Microsoft System Center Virtual Machine Manager (SCVMM), Cisco ACI API (controlador) y conmutadores leaf.
+La aplicación de atributos a los EPG μSeg le permite aplicar políticas de reenvío y seguridad con mayor granularidad que con los EPG sin atributos. Los atributos son únicos dentro del inquilino.
+## Alta disponibilidad
+Los firewalls como Cisco ASA ofrecen funciones de alta disponibilidad como las siguientes:
+- Conmutación por error activo-en espera
+- Conmutación por error activo-activo
+- Agrupamiento
+## Conmutación por error activa-en espera
+En una configuración de conmutación por error activa-en espera, el firewall principal (cuando está en funcionamiento) siempre está activo y el secundario está en modo de espera. Cuando falla el firewall principal, el firewall secundario toma el control. La Figura 1-14 muestra un par de firewalls en una configuración de conmutación por error activa-en espera.
+
+La configuración y la información de red con estado se sincronizan desde el firewall principal al secundario.
+
+![](img/{1E888EAE-1ED0-4850-92B5-500BB2CFC368}.png)
+## Conmutación por error activa-activa
+En una configuración de conmutación por error activa-activa, ambos firewalls están activos. Si uno falla, el otro seguirá pasando tráfico en la red. La Figura 1-15 muestra un par de firewalls en una configuración de conmutación por error activa-activa.
+
+![](img/{F24DA42F-2554-469A-82D7-FCB0D404E6B9}.png)
+## Agrupamiento de firewalls
+Los firewalls como Cisco ASA y Firepower Threat Defense también se pueden agrupar para proporcionar protección de firewall de última generación en entornos grandes y altamente escalables.
+
+La Figura 1-16 muestra un clúster de tres Cisco ASA. Una de las principales razones para agrupar los firewalls es aumentar el rendimiento de los paquetes y escalar de una manera más eficiente.
+
+![](img/{A2718DE4-5F79-4345-832C-B67B20DC2654}.png)
+
+En la Figura 1-16, los Cisco ASA tienen 10 interfaces Gigabit Ethernet en una configuración EtherChannel para conmutadores en redes internas y externas. Un EtherChannel implica agrupar dos o más interfaces para escalar y lograr un mayor ancho de banda.
+## Firewalls en el centro de datos
+Los firewalls también se pueden implementar en el centro de datos. La ubicación de los firewalls en el centro de datos dependerá de muchos factores, como cuánta latencia introducirán los firewalls, qué tipo de tráfico desea bloquear y permitir, y en qué dirección fluirá el tráfico (ya sea de norte a sur o de este a oeste).
+
+En el centro de datos, el tráfico que va de un segmento de red o aplicación del centro de datos a otro segmento de red o aplicación dentro del centro de datos a menudo se conoce como tráfico de este a oeste (o de oeste a este). Esto también se conoce como tráfico lateral. La Figura 1-17 muestra el tráfico de este a oeste.
+
+De manera similar, el tráfico que va hacia y desde el centro de datos y el resto de la red corporativa se suele denominar tráfico de norte a sur (o de sur a norte). La Figura 1-18 muestra el tráfico de norte a sur.
+
+Otro ejemplo de segmentación avanzada y microsegmentación en el centro de datos son las capacidades de seguridad de Cisco ACI, que es una solución de red definida por software (SDN) que tiene un modelo de políticas sólido en las redes, servidores, almacenamiento, seguridad y servicios del centro de datos. Esta automatización basada en políticas ayuda a los administradores de red a lograr la microsegmentación mediante la integración de entornos físicos y virtuales bajo un modelo de políticas para redes, servidores, almacenamiento, servicios y seguridad. Incluso si los servidores y las aplicaciones están "adyacentes a la red" (es decir, en el mismo segmento de red), no se comunicarán entre sí hasta que se configure y proporcione una política. Es por eso que Cisco ACI es muy atractivo para muchos administradores de red preocupados por la seguridad. Otro beneficio importante de Cisco ACI es la automatización. Con dicha automatización, puede reducir los tiempos de implementación de aplicaciones de semanas a minutos. Las políticas de Cisco ACI son aplicadas e implementadas por el controlador de infraestructura de políticas de aplicaciones de Cisco (APIC).
+
+![](img/{84CA9645-BE88-4FD1-8DD8-0481C26F5A90}.png)
+
+![](img/{85FD1A74-518C-4F87-A99D-77EB47B9DA82}.png)
+
+83
